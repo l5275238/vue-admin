@@ -2,8 +2,9 @@ import request from '@/utils/request'
 
 export function login(username, password) {
   debugger
-  return  new Promise(res,ref=>{
-    if(username==='admin',password==='admin'){
+  return  new Promise((res,ref)=>{
+    if(username=='admin'&&password=='admin'){
+
       res({
         token:1111,
       })
