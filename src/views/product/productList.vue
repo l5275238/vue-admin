@@ -3,8 +3,14 @@
 </template>
 
 <script>
+  import { getList } from '@/api/product'
     export default {
-        name: "productList"
+        name: "productList",
+      created(){
+        getList({
+          page:1,
+        })
+      }
     }
 </script>
 

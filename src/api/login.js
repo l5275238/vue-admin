@@ -1,12 +1,12 @@
 import request from '@/utils/request'
 
 export function login(username, password) {
-  debugger
+
   return  new Promise((res,ref)=>{
     if(username=='admin'&&password=='admin'){
 
       res({
-        token:1111,
+        token:"oAh9N5XqJi1Oc2NavXH23Ska1svk",
       })
     }
     else {
@@ -29,13 +29,12 @@ export function getInfo(token) {
   return request({
     url: '/user/info',
     method: 'get',
-    params: { token }
+    params: {  }
   })
 }
 
 export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
+  return new Promise((res,ref)=>{
+    res()
   })
 }
