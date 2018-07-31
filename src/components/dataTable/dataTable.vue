@@ -1,5 +1,7 @@
 <template>
   <div class="dataTable">
+    <router-link class="inlineBlock" :to="add.url">  <el-button type="primary" >{{add.title}}</el-button></router-link>
+
   <el-table  :data="obj.list"  :height="!hasPage?600:null"   v-loading="obj.isLoading" @selection-change="handleSelectionChange" @cell-click="cellClick"  :row-class-name="tableRowClassName" :max-height="height">
     <!--选择-->
     <el-table-column v-if="hasSelection" type="selection">
@@ -39,7 +41,7 @@
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
 
-    :current-page="obj.page.pageNum" :page-sizes="[10, 20, 30, 40]" :page-size="obj.pageSize" layout="total, sizes, prev, pager, next" :total="obj.page.total||0">
+    :current-page="obj.page.pageNum" :page-sizes="[10, 20, 30, 40]" :page-size="obj.pageSize" layout="total, sizes, prev, pager, next" :total="obj.page.totalCount||0">
   </el-pagination>
     </div>
   </div>
@@ -78,6 +80,15 @@ components:{
         type:Function,
         default:function () {
           return ""
+        }
+      },
+      add:{
+        type:Object,
+        default:function () {
+          return {
+            title:"",
+            url:""
+          }
         }
       },
       tooltip: {

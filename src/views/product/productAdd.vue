@@ -1,6 +1,36 @@
 <template>
-  <div>
-    <dataTable :obj="res" :add="add" :columns="columns"></dataTable>
+  <div style="width: 500px">
+    <el-form  label-width="80px" :model="formLabelAlign">
+    <el-form-item label="产品名称">
+      <el-input v-model="formLabelAlign.productName"></el-input>
+    </el-form-item>
+    <el-form-item label="产品类型">
+      <el-input v-model="formLabelAlign.productType"></el-input>
+    </el-form-item>
+    <el-form-item label="尺寸">
+      <el-input v-model="formLabelAlign.productSize"></el-input>
+    </el-form-item>
+      <el-form-item label="长">
+        <el-input v-model="formLabelAlign.productWidth"></el-input>
+      </el-form-item>
+      <el-form-item label="宽">
+        <el-input v-model="formLabelAlign.productHeight"></el-input>
+      </el-form-item>
+      <el-form-item label="成本">
+        <el-input v-model="formLabelAlign.productUnitPrice"></el-input>
+      </el-form-item>
+      <el-form-item label="售价">
+        <el-input v-model="formLabelAlign.productUnitSalePrice"></el-input>
+      </el-form-item>
+      <el-form-item label="单位">
+        <el-input v-model="formLabelAlign.productUnit"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+
+      </el-form-item>
+    </el-form>
+
   </div>
 
 </template>
@@ -17,6 +47,7 @@
       },
       data(){
           return {
+            formLabelAlign:{},
             add:{
               title:"新增产品",
               url:"/product/add"
@@ -56,7 +87,7 @@
           }
       },
       created(){
-          this.getList()
+
 
       },
       methods:{
