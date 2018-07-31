@@ -6,7 +6,7 @@ export function login(username, password) {
     if(username=='admin'&&password=='admin'){
 
       res({
-        token:"oAh9N5XqJi1Oc2NavXH23Ska1svk",
+        token:'oAh9N5T06QH7boMO_v_jolAoICqw',
       })
     }
     else {
@@ -29,12 +29,13 @@ export function getInfo(token) {
   return request({
     url: '/user/info',
     method: 'get',
-    params: {  }
+    params: { token }
   })
 }
 
 export function logout() {
-  return new Promise((res,ref)=>{
-    res()
+  return request({
+    url: '/user/logout',
+    method: 'post'
   })
 }
