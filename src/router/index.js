@@ -79,39 +79,74 @@ export const constantRouterMap = [
   },
   prodoctRoute,
   {
-    path: '/example',
+    path: '/wareHouse',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
+    redirect: '/wareHouse/wareHouse',
+    name: 'wareHouse',
+    meta: { title: '仓库管理', icon: 'table' },
+    children: [{
+      path: 'wareHouse',
+      name:"wareHouse",
+      component: () => import('@/views/wareHouse/wareHouse'),
+      meta: { title: '仓库管理', icon: 'table' }
+    },
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'out',
+        name:"out",
+        component: () => import('@/views/wareHouse/out'),
+        meta: { title: '出库', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
+        path: 'put',
+        name:"put",
+        component: () => import('@/views/wareHouse/put'),
+        meta: { title: '入库', icon: 'table' }
+      },
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'purchase',
+        name:"purchase",
+        component: () => import('@/views/wareHouse/purchase'),
+        meta: { title: '采购', icon: 'table' }
       }
+
+
+
     ]
   },
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: 'Example',
+  //   meta: { title: 'Example', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: 'Table', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: 'Tree', icon: 'tree' }
+  //     }
+  //   ]
+  // },
+  //
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     }
+  //   ]
+  // },
 
   { path: '*', redirect: '/404', hidden: true }
 ]
