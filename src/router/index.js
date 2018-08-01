@@ -37,6 +37,46 @@ export const constantRouterMap = [
       component: () => import('@/views/dashboard/index')
     }]
   },
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/list',
+    name: 'order',
+    meta: { title: '订单管理', icon: 'table' },
+    children: [{
+      path: 'list',
+      component: () => import('@/views/order/orderList'),
+      meta: { title: '订单管理', icon: 'table' }
+    }]
+  },
+  {
+    path: '/financial',
+    component: Layout,
+    redirect: '/financial/jxs',
+    name: 'financial',
+    meta: { title: '财务管理', icon: 'table' },
+    children: [{
+      path: 'jxs',
+      name:"jxs",
+      component: () => import('@/views/financial/jxs'),
+      meta: { title: '经销商统计', icon: 'table' }
+    },
+      {
+        path: 'store',
+        name:"store",
+        component: () => import('@/views/financial/store'),
+        meta: { title: '门店统计', icon: 'table' }
+      },
+      {
+        path: 'yszk',
+        name:"yszk",
+        component: () => import('@/views/financial/yszk'),
+        meta: { title: '应收账款', icon: 'table' }
+      }
+
+
+    ]
+  },
   prodoctRoute,
   {
     path: '/example',
