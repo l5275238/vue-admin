@@ -1,6 +1,8 @@
 <template>
   <div class="dataTable">
+    <div v-if="add.url" style="padding: 20px">
     <router-link class="inlineBlock" :to="add.url">  <el-button type="primary" >{{add.title}}</el-button></router-link>
+    </div>
 
   <el-table  :data="obj.list"  :height="!hasPage?600:null"   v-loading="obj.isLoading" @selection-change="handleSelectionChange" @cell-click="cellClick"  :row-class-name="tableRowClassName" :max-height="height">
     <!--选择-->

@@ -76,3 +76,12 @@ a:hover {
 .app-container {
   padding: 20px;
 }
+.add{
+ padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  >form{
+    width: 500px;
+  }
+}

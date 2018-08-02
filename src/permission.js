@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
+  document.title=to.meta.title;
   NProgress.done() // 结束Progress
 })
