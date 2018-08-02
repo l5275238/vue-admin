@@ -72,7 +72,7 @@ service.interceptors.response.use(
     // }
   },
   error => {
-    console.log('err' + error)// for debug
+
     Message({
       message: error.message,
       type: 'error',
@@ -81,5 +81,7 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+
 
 export default service
