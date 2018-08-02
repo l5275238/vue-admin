@@ -51,10 +51,10 @@ return{
         rules:function () {
           let obj={}
           for (let value of this.vform){
-
+              let isFn=typeof value.validator=='Function';
             obj[value.key]=[
               {
-                validator:check(value.validator,value.name),
+                validator:isFn?value.validator:check(value.validator,value.name),
                 trigger:value.trigger|'blur'
               }
             ]
