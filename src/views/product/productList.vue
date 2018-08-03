@@ -8,7 +8,7 @@
 <script>
   import minx from '@/minxs/page'
   import dataTable from '@/components/dataTable/dataTable'
-  import {getList} from '@/api/product.js'
+  import {getList,delet} from '@/api/product.js'
     export default {
         name: "productList",
       mixins:[minx],
@@ -51,7 +51,50 @@
                 prop:"productHeight",
                 isShow:true,
                 label:"高"
-              }
+              },
+              {
+                prop:"",
+                isShow:true,
+                label:"操作",
+                render:(h,params)=>{
+                  return h('div',[
+                    h('el-button',{
+                      props: {
+                        type: 'primary',
+                        size: 'small'
+                      },
+                      style: {
+                        marginRight: '5px'
+                      },
+                      on: {
+                        click: () => {
+                            this.$router.push({path:'/product/add',query:{id:params.row.productId}})
+                        }
+                      }
+                    },'编辑'),
+                    h('el-button',{
+                      props: {
+                        type: 'danger',
+                        size: 'small'
+                      },
+                      style: {
+                        marginRight: '5px'
+                      },
+                      on: {
+                        click: () => {
+                          console.log(params.row);
+                          delet({id:params.row.productId}).then(
+                            res=>{
+                              this.getList()
+                            }
+                          )
+                        }
+                      }
+                    },'删除')
+                  ])
+                }
+              },
+
             ]
           }
       },

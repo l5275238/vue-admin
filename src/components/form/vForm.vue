@@ -13,6 +13,7 @@
 
 <script>
   import check from './check'
+  import type from  '@/utils/type'
     export default {
         name: "vForm",
       props:{
@@ -51,13 +52,34 @@ return{
         rules:function () {
           let obj={}
           for (let value of this.vform){
-              let isFn=typeof value.validator=='Function';
-            obj[value.key]=[
-              {
-                validator:isFn?value.validator:check(value.validator,value.name),
-                trigger:value.trigger|'blur'
-              }
-            ]
+
+            if(type.isString(value.validator[0])){
+
+               obj[value.key]=[
+                 {
+                   validator:check(value.validator,value.name),
+                   trigger:value.trigger|'blur'
+                 }
+               ]
+             }
+             else {
+               obj[value.key]=value.validator.map(item=>{
+
+                 if(type.isFunc(item)){
+                   var validator=item
+                 }
+                 if(type.isArray(item)){
+
+                   var validator=check(item,value.name)
+                 }
+                 return {
+                   validator:validator,
+                   trigger:value.trigger|'blur'
+                 }
+               })
+             }
+
+
           }
 
           return obj

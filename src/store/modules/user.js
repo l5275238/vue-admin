@@ -32,7 +32,7 @@ const user = {
         login(username, userInfo.password).then(response => {
 
           const data = response
-          debugger
+
           setToken(data.token)
           commit('SET_TOKEN', data.token)
           resolve()

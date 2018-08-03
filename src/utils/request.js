@@ -73,15 +73,33 @@ service.interceptors.response.use(
   },
   error => {
 
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
     return Promise.reject(error)
   }
 )
+let request=function (params) {
+  return new Promise((res,ref)=>{
+    service(params).then(data=>{
+        res(data)
 
+    }).catch(erro=>{
+      if(!params.isEror){
+        Message({
+          message: erro.message,
+          type: 'error',
+          duration: 5 * 1000
+        })
+      }
+      else {
+        ref(erro)
+      }
 
+    })
+  })
+}
 
-export default service
+export default request

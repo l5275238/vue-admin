@@ -13,6 +13,7 @@ export default function check(rules,name) {
           callback(new Error(messges[rule].replace(/\w*(\{messge\})\w*/,name).replace(/(\{key\})/,messgeKey)))
         }
       }
+
       if(!validate[rule](value)){
 
         callback(new Error(messges[rule].replace(/\w*(\{messge\})\w*/,name)))

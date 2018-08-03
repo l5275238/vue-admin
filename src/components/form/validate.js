@@ -1,13 +1,18 @@
 
 var   gettype=Object.prototype.toString
   var  isEmpty =function (str){
-    console.log(gettype.call(str) != '[object String]');
+
     if(gettype.call(str)!='[object String]') return true;
     return str.length <= 0;
   }
   //正则判定
   var _validateByReg = function (str,sRegexp){
+    if(gettype.call(str)=='[object Number]'){
+      str+="";
+    }
+
     str = str?str.trim():'';
+
     if(isEmpty(str)) return true;
     if(str && (new RegExp (sRegexp) ) && (new RegExp (sRegexp)).test(str)) return true ;
     return false;
@@ -20,6 +25,10 @@ export  let validate= {
      * @return {Boolean}
      */
     isNotEmpty :function (str){
+      if(gettype.call(str)=='[object Number]'){
+        str+="";
+      }
+
       if(gettype.call(str)!='[object String]') return false;
       return str.length > 0;
     },

@@ -6,3 +6,29 @@ export function getList(params) {
     data: params
   })
 }
+export function delet(params) {
+  return request({
+    url: '/product/deleteProduct',
+    method: 'post',
+    data: params
+  })
+
+}
+export function get(params) {
+
+  return request({
+    url: '/product/findProductById',
+    method: 'get',
+    params: params
+  })
+
+}
+export function edit(params) {
+  return request({
+    url: params.productId?'/product/updateProduct':'/product/addProduct',
+    method: 'post',
+    data: params
+  })
+
+}
+

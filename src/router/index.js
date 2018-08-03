@@ -91,6 +91,13 @@ export const constantRouterMap = [
       meta: { title: '仓库管理', icon: 'table' }
     },
       {
+        path: 'addWareHouse',
+        name:"addWareHouse",
+        hidden: true,
+        component: () => import('@/views/wareHouse/addWareHouse'),
+        meta: { title: '新增仓库', icon: 'table' }
+      },
+      {
         path: 'out',
         name:"out",
         component: () => import('@/views/wareHouse/out'),

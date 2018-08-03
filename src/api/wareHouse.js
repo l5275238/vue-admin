@@ -8,6 +8,27 @@ export function getWareHoseList(data){
   })
 
 }
+export function editHose(data) {
+  return request({
+    url:data.depotId?"/depot/updateDepot":"/depot/addDepot",
+    method:"post",
+    data:data
+  })
+}
+export function deletHose(data) {
+  return request({
+    url:"/depot/deleteDepot",
+    method:"get",
+    params:data
+  })
+}
+export function getHose(data) {
+  return request({
+    url:"/depot/findDepotById",
+    method:"get",
+    params:data
+  })
+}
 export function getOutList(data){
 
   return request({

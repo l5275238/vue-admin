@@ -1,25 +1,24 @@
 <template>
   <div class="add">
-    <vForm :form="form" :vform="vform"></vForm>
+    <vForm :form="form" :vform="vform" @subMit="onSubmit"></vForm>
 
   </div>
 
 </template>
 
 <script>
-  import minx from '@/minxs/page'
-  import dataTable from '@/components/dataTable/dataTable'
   import vForm from '@/components/form/vForm'
-  import {getList} from '@/api/product.js'
+  import {get,add,edit} from '@/api/product.js'
   import check from '@/utils/validata'
     export default {
         name: "productList",
-      mixins:[minx],
+
       components:{
-        dataTable,
+
         vForm
       },
       data(){
+
           return {
             form:{},
             vform:[    {
@@ -42,31 +41,40 @@
               },
               {
                 key:"productWidth",
-                validator: ['isNotEmpty'],
+                validator: ['isNotEmpty','isNumber'],
                 trigger:'blur',
                 name:"长"
               },
               {
                 key:"productHeight",
-                validator: ['isNotEmpty'],
+                validator: ['isNotEmpty','isNumber'],
                 trigger:'blur',
                 name:"高"
               },
               {
                 key:"productUnitPrice",
-                validator: ['isNotEmpty'],
+                validator: ['isNotEmpty','isNumber'],
                 trigger:'blur',
                 name:"成本"
               },
               {
                 key:"productUnitSalePrice",
-                validator: ['isNotEmpty'],
+                validator: [['isNotEmpty','isNumber'],(rule,value,callBack)=>{
+
+                  if((value-this.form.productUnitPrice)<0){
+
+                    callBack(new Error('售价必须大于成本价!'))
+                  }
+                  else {
+                    callBack()
+                  }
+                }],
                 trigger:'blur',
                 name:"售价"
               },
               {
                 key:"productUnit",
-                validator: ['isNotEmpty','isNumber'],
+                validator: ['isNotEmpty'],
                 trigger:'blur',
                 name:"单位"
               },
@@ -78,12 +86,29 @@
           }
       },
       created(){
-
+        this.init()
 
       },
-      methods:{
-        onSubmit:function(){
 
+      methods:{
+          init(){
+
+            if(this.$route.query.id){
+
+                this.get(this.$route.query.id)
+            }
+          },
+        get(id){
+            get({
+              productId:id
+            }).then(data=>{
+              this.form=data
+            })
+        },
+        onSubmit:function(item){
+          edit(item).then(res=>{
+            this.$router.back(-1)
+          })
         },
         getList:async function () {
           this.res.isLoading=true
