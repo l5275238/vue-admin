@@ -4,13 +4,11 @@
     <router-link class="inlineBlock" :to="add.url">  <el-button type="primary" >{{add.title}}</el-button></router-link>
     </div>
 
-  <el-table  :data="obj.list"  :height="!hasPage?600:null"   v-loading="obj.isLoading" @selection-change="handleSelectionChange" @cell-click="cellClick"  :row-class-name="tableRowClassName" :max-height="height">
+  <el-table  :data="obj.list"  :height="!hasPage?400:null"   v-loading="obj.isLoading" @selection-change="handleSelectionChange" @cell-click="cellClick"  :row-class-name="tableRowClassName" :max-height="height">
     <!--选择-->
-    <el-table-column v-if="hasSelection" type="selection">
-    </el-table-column>
+
     <!--序号-->
-    <el-table-column v-if="hasIndex" type="index">
-    </el-table-column>
+
     <!--数据源-->
 
     <el-table-column
@@ -59,11 +57,7 @@
        * */
   export default {
     name: "tm-table",
-    watch:{
-        obj:function () {
-          console.log(this.obj);
-        }
-    },
+
 components:{
   render,
   radioBtn,
@@ -97,22 +91,7 @@ components:{
         type: Boolean,
         default: true
       },
-      page:{
-        type:Object,
-        default:function () {
-          return {
-            page:1,
-            limit:10,
-            totalCount:0,
-          }
-        }
-      },
-      operation:{
-        type:Object,
-        default:function () {
-          return {}
-        }
-      },
+
       hasPage:{
         type:Boolean,
         default:function () {
@@ -120,27 +99,9 @@ components:{
         }
       },
 
-      //是否可以选择
-      hasSelection: {
-        type: Boolean,
-        default: function() {
-          return false;
-        }
-      },
-      //是否有序列项
-      hasIndex: {
-        type: Boolean,
-        default: function() {
-          return false;
-        }
-      },
-      //是否有操作
-      hasOperation:{
-        type:Boolean,
-        default:function(){
-          return false;
-        }
-      },
+
+
+
       height: {
         default: function() {
           return "100%";

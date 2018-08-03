@@ -14,6 +14,13 @@ export function delet(params) {
   })
 
 }
+export function getAll(params) {
+  return request({
+    url: '/product/queryListProducts',
+    method: 'post',
+
+  })
+}
 export function get(params) {
 
   return request({

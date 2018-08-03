@@ -7,6 +7,7 @@
 
 <script>
   import {getPurchase} from '@/api/wareHouse.js'
+
   import minx from '@/minxs/page'
   import dataTable from '@/components/dataTable/dataTable'
   export default {
