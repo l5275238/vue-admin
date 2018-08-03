@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dataTable :obj="res"  :columns="columns"></dataTable>
+    <dataTable :obj="res" :add="add"  :columns="columns"></dataTable>
 
   </div>
 </template>
@@ -14,6 +14,10 @@
     mixins:[minx],
     data(){
       return{
+        add:{
+          title:"新增采购单",
+          url:"/wareHouse/addWareHouse"
+        },
         columns:[
           {prop:"number",
             label:"订单号",
