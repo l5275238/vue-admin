@@ -15,6 +15,14 @@ export function editHose(data) {
     data:data
   })
 }
+export function getAllHouse(data) {
+  return request({
+    url:"/depot/queryListDepots",
+    method:"post",
+    data:data
+  })
+
+}
 export function deletHose(data) {
   return request({
     url:"/depot/deleteDepot",

@@ -1,0 +1,200 @@
+<template>
+  <div>
+
+      <dataTable :obj="res"  :columns="columns" :hasPage="hasPage" ></dataTable>
+
+  </div>
+</template>
+
+<script>
+  import dataTable from '@/components/dataTable/dataTable'
+  import {getAll} from '@/api/product.js'
+  import vSelect from '@/components/select/select'
+  export default {
+    name: "productModel",
+    components:{
+      dataTable,
+      vSelect
+    },
+    data(){
+      return{
+        res:{
+          list:[]
+        },
+        hasPage:false,
+        bfClose:()=>{
+          this.$emit('input',false)
+        },
+        columns:[
+          {
+            prop:"productName",
+            isShow:true,
+            label:"商品名称"
+          },
+          {
+            prop:"productUnitPrice",
+            isShow:true,
+            label:"成本价"
+          },
+          {
+            prop:"productUnitSalePrice",
+            isShow:true,
+            label:"出售价"
+          },
+          {
+            prop:"productType",
+            isShow:true,
+            label:"类型"
+          },
+          {
+            prop:"productWidth",
+            isShow:true,
+            label:"长"
+          },
+          {
+            prop:"number",
+            isShow:true,
+            label:"数量",
+            render:(h,params)=>{
+              return h('el-input',{
+                props:{
+                  value:params.row.number
+                },
+                on:{
+                  change:item=>{
+                    params.row.number=item
+                  }
+                }
+              })
+            }
+          },
+          {
+            prop:"discount",
+            isShow:true,
+            label:"折扣",
+            render:(h,params)=>{
+              return h('el-input',{
+                props:{
+                  value:params.row.discount
+                },
+                on:{
+                  change:item=>{
+                    params.row.discount=item
+                  }
+                }
+              })
+            }
+          },
+          {
+            prop:"address",
+            isShow:true,
+            label:"地址",
+            render:(h,params)=>{
+              return h('el-input',{
+                props:{
+                  value:params.row.discount
+                },
+                on:{
+                  change:item=>{
+                    params.row.discount=item
+                  }
+                }
+              })
+            }
+          },
+          {
+            prop:"kong",
+            isShow:true,
+            label:"打孔/挂钩",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params.row['kong'],
+
+                  options: [{
+                    value: '1',
+                    label: '打孔'
+                  }, {
+                    value: '3',
+                    label: '挂钩'
+                  },],
+                },
+                on:{
+                  change:(item)=>{
+                    params.row.kong=item
+                  }
+                }
+
+              })
+
+            }
+          },
+          {
+            prop:"zhuang",
+            isShow:true,
+            label:"墙装/顶装",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params.row['zhuang'],
+                  options: [{
+                    value: '1',
+                    label: '墙装'
+                  }, {
+                    value: '3',
+                    label: '顶装'
+                  },],
+                },
+                on:{
+                  change:(item)=>{
+                    params.row.zhuang=item
+                  }
+                }
+
+              })
+
+            }
+          },
+
+
+
+        ]
+      }
+
+    },
+    created(){
+      this.getAll()
+    },
+
+    methods:{
+      getAll () {
+        getAll().then(res=>{
+          this.res.list=res.map(item=>{
+            item.number='1'
+            item.zhuang='1'
+            item.kong='1'
+            return item
+          });
+        })
+      },
+      close(){
+        this.$emit('input',false)
+      }
+    },
+    props:{
+
+      value:{
+        type:Boolean,
+        default:function () {
+          return true
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

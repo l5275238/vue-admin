@@ -1,7 +1,8 @@
 <template>
   <el-form  label-width="80px" :model="form" :rules="rules" ref="ruleForm" >
     <el-form-item :label="item.name" :prop="item.key" :key="item.key" v-for="item in vform">
-      <el-input v-model="form[item.key]" ></el-input>
+      <el-input v-model="form[item.key]" v-if="!item.render" ></el-input>
+      <render v-else :render="item.render" :params="form"></render>
     </el-form-item>
 
     <el-form-item>
@@ -14,6 +15,7 @@
 <script>
   import check from './check'
   import type from  '@/utils/type'
+  import render from './render'
     export default {
         name: "vForm",
       props:{
@@ -29,6 +31,9 @@
             return []
           }
         }
+      },
+      components:{
+        render
       },
         data(){
 return{
@@ -74,7 +79,7 @@ return{
                  }
                  return {
                    validator:validator,
-                   trigger:value.trigger|'blur'
+                   trigger:'change'
                  }
                })
              }

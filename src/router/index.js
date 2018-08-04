@@ -49,7 +49,13 @@ export const constantRouterMap = [
       path: 'list',
       component: () => import('@/views/order/orderList'),
       meta: { title: '订单管理', icon: 'table' }
-    }]
+    },
+      {
+        path: 'addOrder',
+        component: () => import('@/views/order/addOrder'),
+        meta: { title: '编辑订单', icon: 'table' }
+      }
+    ]
   },
   {
     path: '/financial',
