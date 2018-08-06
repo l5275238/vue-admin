@@ -14,8 +14,10 @@
     name: "productModel",
     components:{
       dataTable,
-      vSelect
+      vSelect,
+
     },
+
     data(){
       return{
         res:{
@@ -47,9 +49,38 @@
             label:"类型"
           },
           {
-            prop:"productWidth",
-            isShow:true,
-            label:"长"
+            prop:"width ",
+            isShow:this.wHshow,
+            label:"宽",
+            render:(h,params)=>{
+              return h('el-input',{
+                props:{
+                  value:params.row.width
+                },
+                on:{
+                  change:item=>{
+                    params.row.width=item
+                  }
+                }
+              })
+            }
+          },
+          {
+            prop:"height ",
+            isShow:this.wHshow,
+            label:"高",
+            render:(h,params)=>{
+              return h('el-input',{
+                props:{
+                  value:params.row.height
+                },
+                on:{
+                  change:item=>{
+                    params.row.height=item
+                  }
+                }
+              })
+            }
           },
           {
             prop:"number",
@@ -189,6 +220,12 @@
         type:Boolean,
         default:function () {
           return true
+        }
+      },
+      wHshow:{
+        type:Boolean,
+        default:function () {
+          return false
         }
       }
     }

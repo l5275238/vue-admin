@@ -38,24 +38,9 @@ name:"orderList",
   },
   created(){
   this.getList();
-    let head = {
-      method:'post',//定义请求方式，POST、GET、PUT等
-      headers:{
-        'Accept': 'application/json', // 提交参数的数据方式,这里以json的形式
-        'Content-Type': 'application/json',
-        'tokenId':"oAh9N5T06QH7boMO_v_jolAoICqw"
-      },
-      credentials:'include',
-      body:JSON.stringify({
-        roleId:3
-      })
-    };
-
-    fetch('https://mrking.wang/user/findAllyRole',head).then(response=> response.json()).then(data=>{
 
 
 
-    })
   },
   methods:{
     getList:async function () {

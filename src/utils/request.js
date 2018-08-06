@@ -15,7 +15,8 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    config.headers['tokenId'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['tokenId'] = JSON.parse(getToken()).tokenId // 让每个请求携带自定义token 请根据实际情况自行修改
+
   }
   return config
 }, error => {
@@ -82,7 +83,14 @@ service.interceptors.response.use(
   }
 )
 let request=function (params) {
+
   return new Promise((res,ref)=>{
+    if(params.data){
+      params.data=Object.assign({},JSON.parse(getToken()),params.data)
+    }
+    if(params.params){
+      params.params=Object.assign({},JSON.parse(getToken()),params.params)
+    }
     service(params).then(data=>{
         res(data)
 

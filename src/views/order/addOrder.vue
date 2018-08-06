@@ -26,7 +26,10 @@
 
       return {
         form:{
-          orderType:""
+          orderType:"",
+          serverCharge:"",
+          mode:""
+
         },
         depotList:[],
         vform:[    {
@@ -59,6 +62,35 @@
           }
         },
           {
+            key:"mode",
+            validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"计算方式",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params['mode'],
+
+                  options: [{
+                    value: '1',
+                    label: '数量'
+                  }, {
+                    value: '3',
+                    label: '面积'
+                  },],
+                },
+                on:{
+                  change:(item)=>{
+                    params.mode=item
+                  }
+                }
+
+              })
+
+            }
+          },
+          {
             key:"depotFromId",
             validator: ['isNotEmpty'],
             trigger:'blur',
@@ -82,6 +114,36 @@
               })
 
             }
+          },
+          {
+            key:"serverCharge",
+            validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"服务费",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params['serverCharge'],
+
+                  options: [{
+                    value: '1',
+                    label: '支付'
+                  }, {
+                    value: '2',
+                    label: '不支付'
+                  },],
+                },
+                on:{
+                  change:(item)=>{
+                    params.serverCharge=item
+                  }
+                }
+
+              })
+
+            }
+
           },
           {
             key:"productSize",
