@@ -1,6 +1,6 @@
 <template>
   <el-form  label-width="80px" :model="form" :rules="rules" ref="ruleForm" >
-    <el-form-item :label="item.name" :prop="item.key" :key="item.key" v-for="item in vform">
+    <el-form-item :label="item.name" :prop="item.key" :key="item.key" v-for="item in vform" v-if="!item.isHidden||!item.isHidden()">
       <el-input v-model="form[item.key]" v-if="!item.render" ></el-input>
       <render v-else :render="item.render" :params="form"></render>
     </el-form-item>
@@ -34,6 +34,11 @@
       },
       components:{
         render
+      },
+      watch:{
+        form:function () {
+          console.log(this.form);
+        }
       },
         data(){
 return{

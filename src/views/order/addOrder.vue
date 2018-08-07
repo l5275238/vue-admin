@@ -12,7 +12,12 @@
   import {get,add,edit} from '@/api/product.js'
   import {getAllHouse} from "../../api/wareHouse";
   import selectTaber from '../components/editProduct'
+let formData={
+    orderType:"",
+    serverCharge:"",
+    mode:""
 
+  };
   export default {
     name: "addOrder",
 
@@ -22,17 +27,16 @@
       vSelect,
       selectTaber
     },
+    computed:{
+
+    },
     data(){
+     let that=this
 
       return {
-        form:{
-          orderType:"",
-          serverCharge:"",
-          mode:""
-
-        },
+        form:formData,
         depotList:[],
-        vform:[    {
+        vform:[  {
           key:"orderType",
           validator: ['isNotEmpty'],
           trigger:'blur',
@@ -53,7 +57,8 @@
               },
               on:{
                 change:(item)=>{
-                  params.orderType=item
+                  params.orderType=item;
+                this.form=Object.assign({},this.form,params)
                 }
               }
 
@@ -174,7 +179,12 @@
             key:"mobile",
             validator: ['isNotEmpty','isNumber'],
             trigger:'blur',
-            name:"电话"
+            name:"电话",
+            isHidden:()=>{
+              return this.orderType!=3
+            }
+
+
           },
           {
             key:"allMoney",
