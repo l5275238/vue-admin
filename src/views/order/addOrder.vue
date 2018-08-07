@@ -16,7 +16,8 @@
 let formData={
     orderType:"",
     serverCharge:"",
-    mode:""
+    mode:"",
+  shopId:""
 
   };
   export default {
@@ -36,6 +37,7 @@ let formData={
 
       return {
         form:formData,
+        JxsList:[],
         depotList:[],
         vform:[  {
           key:"orderType",
@@ -109,7 +111,7 @@ let formData={
 
                   options:this.depotList,
                   label:"productId",
-                  value:""
+
                 },
                 on:{
                   change:(item)=>{
@@ -209,22 +211,59 @@ let formData={
             name:"实收金额"
           },
           {
+            key:"shopId",
+            validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"选择渠道",
+            isHidden:()=>{
+              return this.form.orderType!=3
+            },
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params['shopId'],
+
+                  options:this.JxsList,
+                  label:"name",
+                  keyValue:"id"
+                },
+                on:{
+                  change:(item)=>{
+                    params.shopId=item
+                  }
+                }
+
+              })
+
+            }
+          },
+          {
             key:"person",
             validator: ['isNotEmpty'],
             trigger:'blur',
-            name:"联系人"
+            name:"联系人",
+            isHidden:()=>{
+              return this.form.orderType!=1
+            },
           },
           {
             key:"address",
             validator: ['isNotEmpty'],
             trigger:'blur',
-            name:"地址"
+            name:"地址",
+            isHidden:()=>{
+              return this.form.orderType!=1
+            },
           },
           {
             key:"followPerson",
             validator: ['isNotEmpty'],
             trigger:'blur',
-            name:"跟单人员"
+            name:"跟单人员",
+            isHidden:()=>{
+              return this.form.orderType!=1
+            },
           },
           {
             key:"customer",

@@ -19,7 +19,7 @@ export function getAllHouse(data) {
   return request({
     url:"/depot/queryListDepots",
     method:"post",
-    data:data
+    data:{}
   })
 
 }

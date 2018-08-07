@@ -6,3 +6,12 @@ export function getList(params) {
     data: params
   })
 }
+
+export function addOrder(params) {
+  return request({
+    url: params.orderId?'/order/shop/update':'/order/shop/insert',
+    method: 'post',
+    data: params
+  })
+}
+
