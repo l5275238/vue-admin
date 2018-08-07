@@ -11,6 +11,7 @@
   import vSelect from '@/components/select/select'
   import {get,add,edit} from '@/api/product.js'
   import {getAllHouse} from "../../api/wareHouse";
+  import {getJxs} from '../../api/financial'
   import selectTaber from '../components/editProduct'
 let formData={
     orderType:"",
@@ -181,7 +182,7 @@ let formData={
             trigger:'blur',
             name:"电话",
             isHidden:()=>{
-              return this.orderType!=3
+              return this.form.orderType!=3
             }
 
 
@@ -191,6 +192,15 @@ let formData={
             validator: ['isNotEmpty','isNumber'],
             trigger:'blur',
             name:"总价"
+          },
+          {
+            key:"定金",
+            validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"定金",
+            isHidden:()=>{
+              return this.form.orderType!=1
+            }
           },
           {
             key:"totalMoney",
@@ -231,6 +241,7 @@ let formData={
     },
     created(){
       this.getAllHouse()
+      this.getJxs()
 
     },
 
@@ -241,6 +252,11 @@ let formData={
 
           this.get(this.$route.query.id)
         }
+      },
+      getJxs(){
+        getJxs().then(res=>{
+          this.JxsList=res;
+        })
       },
       getAllHouse(){
         getAllHouse().then(data=>{
