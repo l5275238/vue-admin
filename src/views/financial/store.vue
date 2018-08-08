@@ -11,23 +11,50 @@
         </el-option>
       </el-select>
     </div>
-
+    <dataTable :obj="res" :columns="columns" :hasPage="hasPage"></dataTable>
   </div>
 </template>
 
 <script>
   import {getPurchase,getJxsList} from '@/api/financial'
+  import dataTable from '@/components/dataTable/dataTable'
   import selectBtn from '@/components/selectBtn/selectBtn'
+  import minx from '@/minxs/page'
   export default {
     name: "jxs",
+    mixins:[minx],
     components:{
-      selectBtn
+      selectBtn,
+      dataTable
     },
     data(){
       return{
         jxsValue:"",
         options:[],
-        time:{}
+        time:{},
+        hasPage:false,
+        columns:[
+          {
+            prop:"productName",
+            isShow:true,
+            label:"商品名称"
+          },
+          {
+            prop:"depotNum",
+            isShow:true,
+            label:"商品数量"
+          },
+          {
+            prop:"productAllSalePrice",
+            isShow:true,
+            label:"总零售价"
+          },
+          {
+            prop:"productAllPrice",
+            isShow:true,
+            label:"总成本价"
+          },
+        ]
       }
     },
     created(){
@@ -41,11 +68,16 @@
         this.getJxsList()
       },
       getJxsList:function () {
+        this.res.isLoading=true
         getJxsList(Object.assign({},this.time,{
           depotId:this.jxsValue,
           depotType:1,
 
-        })).then()
+        })).then(res=>{
+          this.res.isLoading=false
+
+          this.res.list=res
+        })
       }
     }
 

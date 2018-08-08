@@ -15,7 +15,25 @@
     components:{
       dataTable,
       vSelect,
+    },
 
+    watch:{
+      list:function () {
+
+        this.res.list=this.list.map(item=>{
+          item.number='1'
+          item.zhuang='1'
+          item.kong='1'
+          return item
+        });
+
+      },
+      wHshow:function () {
+
+
+       this.columns[4].isShow=this.wHshow;
+       this.columns[5].isShow=this.wHshow;
+      }
     },
 
     data(){
@@ -66,7 +84,7 @@
             }
           },
           {
-            prop:"height ",
+            prop:"height",
             isShow:this.wHshow,
             label:"高",
             render:(h,params)=>{
@@ -196,26 +214,23 @@
 
     },
     created(){
-      this.getAll()
+      console.log(this.wHshow);
     },
 
     methods:{
-      getAll () {
-        getAll().then(res=>{
-          this.res.list=res.map(item=>{
-            item.number='1'
-            item.zhuang='1'
-            item.kong='1'
-            return item
-          });
-        })
-      },
+
       close(){
         this.$emit('input',false)
       }
     },
-    props:{
 
+    props:{
+      list:{
+        type:Array,
+        default:function () {
+          return []
+        }
+      },
       value:{
         type:Boolean,
         default:function () {
@@ -225,7 +240,7 @@
       wHshow:{
         type:Boolean,
         default:function () {
-          return false
+          return true
         }
       }
     }

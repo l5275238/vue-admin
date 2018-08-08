@@ -1,7 +1,9 @@
 <template>
   <el-form  label-width="80px" :model="form" :rules="rules" ref="ruleForm" >
     <el-form-item :label="item.name" :prop="item.key" :key="item.key" v-for="item in vform" v-if="!item.isHidden||!item.isHidden()">
-      <el-input v-model="form[item.key]" v-if="!item.render" ></el-input>
+      <el-input v-model="form[item.key]" v-if="!item.render"  :disabled="item.disabled" @change="item.change||function() {
+
+      }"></el-input>
       <render v-else :render="item.render" :params="form"></render>
     </el-form-item>
 
@@ -62,7 +64,9 @@ return{
         rules:function () {
           let obj={}
           for (let value of this.vform){
-
+                     if(!value.validator){
+                       break
+                     }
             if(type.isString(value.validator[0])){
 
                obj[value.key]=[

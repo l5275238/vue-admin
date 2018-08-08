@@ -31,7 +31,7 @@
           }
       },
       created(){
-        console.log(this.options);
+
       },
       methods:{
         change:function (item) {

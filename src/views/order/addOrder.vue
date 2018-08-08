@@ -1,7 +1,7 @@
 <template>
   <div class="add">
     <vForm :form="form" :vform="vform" @subMit="onSubmit"></vForm>
-
+    <productModel v-model="show" @save="saveList"></productModel>
   </div>
 
 </template>
@@ -13,11 +13,18 @@
   import {getAllHouse} from "../../api/wareHouse";
   import {getJxs} from '../../api/financial'
   import selectTaber from '../components/editProduct'
-let formData={
-    orderType:"",
-    serverCharge:"",
-    mode:"",
-  shopId:""
+  import productModel from '@/views/components/productModel'
+  import {addOrder} from "../../api/order";
+
+  let formData={
+    orderType:"1",
+    serverCharge:"1",
+    mode:"1",
+  shopId:"",
+  depotFromId:"",
+  details:[],
+    allMoney:0,
+
 
   };
   export default {
@@ -27,18 +34,41 @@ let formData={
 
       vForm,
       vSelect,
-      selectTaber
+      selectTaber,
+      productModel
+    },
+    watch:{
+      form:function () {
+
+        let money=0;
+
+        for(let value of  this.form.details){
+          if(this.form.mode==1){
+            money+=this.$calculation.multiply(this.$calculation.multiply(value.number,value.productUnitSalePrice),value.discount)
+          }
+          else {
+            money+=this.$calculation.multiply(this.$calculation.multiply(this.$calculation.multiply(value.number,value.productUnitSalePrice),this.$calculation.multiply(value.width,value.height)),value.discount)
+          }
+        }
+        console.log(money);
+        this.form.allMoney=money
+
+      }
     },
     computed:{
+      allMoney:function () {
 
+      }
     },
     data(){
      let that=this
 
       return {
+        show:false,
         form:formData,
         JxsList:[],
         depotList:[],
+        wHshow:false,
         vform:[  {
           key:"orderType",
           validator: ['isNotEmpty'],
@@ -90,7 +120,14 @@ let formData={
                 },
                 on:{
                   change:(item)=>{
+                    if(item==3){
+                      this.wHshow=true
+                    }
+                    else {
+                      this.wHshow=false
+                    }
                     params.mode=item
+                    this.form=Object.assign({},this.form,params)
                   }
                 }
 
@@ -110,12 +147,14 @@ let formData={
                   value:params['depotFromId'],
 
                   options:this.depotList,
-                  label:"productId",
+                  label:"depotName",
+                  keyValue:"depotId",
 
                 },
                 on:{
                   change:(item)=>{
                     params.depotFromId=item
+                    this.form=Object.assign({},this.form,params)
                   }
                 }
 
@@ -145,6 +184,7 @@ let formData={
                 on:{
                   change:(item)=>{
                     params.serverCharge=item
+                    this.form=Object.assign({},this.form,params)
                   }
                 }
 
@@ -161,21 +201,33 @@ let formData={
           },
           {
             key:"productWidth",
-            validator: ['isNotEmpty','isNumber'],
+            // validator: ['isNotEmpty','isNumber'],
             trigger:'blur',
             name:"选择商品",
             render:(h,params)=>{
-              return h('el-button',{},'选择商品')
+              return h('el-button',{
+                on:{
+                  click:()=>{
+                    this.show=true
+                  }
+                }
+
+              },'选择商品')
             }
           },
           {
-            key:"productHeight",
-            validator: ['isNotEmpty','isNumber'],
+            key:"details",
+            // validator: ['isNotEmpty',],
             trigger:'blur',
             name:"商品列表",
             render:(h,params)=>{
               let create=this.$createElement;
-              return create('selectTaber')
+              return create('selectTaber',{
+                props:{
+                  list:this.form.details,
+                  wHshow:this.wHshow,
+                }
+              })
             }
           },
           {
@@ -193,7 +245,8 @@ let formData={
             key:"allMoney",
             validator: ['isNotEmpty','isNumber'],
             trigger:'blur',
-            name:"总价"
+            name:"总价",
+            disabled:true
           },
           {
             key:"定金",
@@ -231,6 +284,7 @@ let formData={
                 on:{
                   change:(item)=>{
                     params.shopId=item
+                    this.form=Object.assign({},this.form,params)
                   }
                 }
 
@@ -245,6 +299,7 @@ let formData={
             name:"联系人",
             isHidden:()=>{
               return this.form.orderType!=1
+
             },
           },
           {
@@ -285,6 +340,9 @@ let formData={
     },
 
     methods:{
+      saveList(item){
+       this.form.details=item;
+      },
       init(){
 
         if(this.$route.query.id){

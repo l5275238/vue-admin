@@ -4,7 +4,7 @@
           <dataTable :obj="res"  :columns="columns" :hasPage="hasPage" ></dataTable>
           <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
-            <el-button type="primary" @click="close">确 定</el-button>
+            <el-button type="primary" @click="save">确 定</el-button>
           </div>
         </el-dialog>
       </div>
@@ -18,6 +18,7 @@
       components:{
         dataTable
       },
+
       data(){
           return{
             res:{
@@ -36,6 +37,11 @@
                   return h('el-checkbox',{
                     props:{
                       value:params.row.isCheck
+                    },
+                    on:{
+                      change:(item)=>{
+                        params.row.isCheck=item
+                      }
                     }
                   })
                 }
@@ -88,9 +94,18 @@
         },
         close(){
           this.$emit('input',false)
+        },
+        save(){
+          let list =this.res.list.filter(item=>{
+            return item.isCheck
+          })
+
+          this.$emit('save',list)
+          this.$emit('input',false)
         }
       },
       props:{
+
 
         value:{
           type:Boolean,

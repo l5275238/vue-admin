@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <!--<productModel v-model="show"></productModel>-->
+
   </div>
 </template>
 
 <script>
-  import productModel from './views/components/productModel'
+
 export default {
   name: 'App',
   data(){
@@ -15,7 +15,7 @@ export default {
     }
   },
   components:{
-    productModel
+
   }
 }
 </script>
