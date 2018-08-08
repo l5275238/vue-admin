@@ -122,8 +122,9 @@
                 },
                 on:{
                   change:(item)=>{
-
-                    this.res.list[params.$index]['model']=item
+                    params.row.model=item;
+                    this.$set(this.list,params.$index,params.row)
+                    
 
 
                   }
@@ -205,6 +206,7 @@
                 on:{
                   change:(item)=>{
                     params.row.kong=item
+                    this.$set(this.list,params.$index,params.row)
 
                   }
                 }
@@ -233,8 +235,7 @@
                 on:{
                   change:(item)=>{
                     params.row.zhuang=item
-                    this.show=false;
-                    this.show=true
+                    this.$set(this.list,params.$index,params.row)
                   }
                 }
 

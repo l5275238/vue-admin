@@ -2,7 +2,7 @@
       <div>
         <div class="top">
           <selectBtn @change="change"></selectBtn>
-          <el-select v-model="jxsValue" placeholder="请选择经销商">
+          <el-select v-model="jxsValue" placeholder="请选择经销商" @change="getList">
             <el-option
               v-for="item in options"
               :key="item.id"

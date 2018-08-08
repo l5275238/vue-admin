@@ -58,6 +58,19 @@ export const constantRouterMap = [
     ]
   },
   {
+    path: '/people',
+    component: Layout,
+    redirect: '/people/list',
+    name: 'people',
+    meta: { title: '人员管理 ', icon: 'table' },
+    children: [{
+      path: 'list',
+      name: "peopleList",
+      component: () => import('@/views/people/peopleList'),
+      meta: { title: '人员统计', icon: 'table' }
+    }]
+  },
+  {
     path: '/financial',
     component: Layout,
     redirect: '/financial/jxs',
