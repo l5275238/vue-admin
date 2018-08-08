@@ -25,8 +25,9 @@
           item.number= item.number?item.number:'1'
           item.zhuang=item.zhuang? item.zhuang:'1'
           item.kong=item.kong?item.kong:'1'
-          item.model=item.model?item.model:'1'
-          debugger
+          item.mode=item.mode?item.model:'1'
+          item.serverCharge=item.serverCharge?item.serverCharge:'1'
+          
           return item
         });
 
@@ -101,28 +102,28 @@
             }
           },
           {
-            prop:"model",
+            prop:"mode",
             isShow:true,
             label:"计算类型",
             render:(h,params)=>{
               let create=this.$createElement;
-              let value=params.row['model'];
+              let value=params.row['mode'];
               return create('vSelect',{
 
                 props:{
-                  value:params.row['model'],
+                  value:params.row['mode'],
 
                   options: [{
                     value: '1',
                     label: '数量'
                   }, {
-                    value: '3',
+                    value: '2',
                     label: '面积'
                   },],
                 },
                 on:{
                   change:(item)=>{
-                    params.row.model=item;
+                    params.row.mode=item;
                     this.$set(this.list,params.$index,params.row)
                     
 
@@ -133,6 +134,37 @@
               })
 
             }
+          },
+          {
+            prop:"serverCharge",
+            isShow:true,
+            label:"服务费用",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params.row['serverCharge'],
+
+                  options: [{
+                    value: '1',
+                    label: '支付'
+                  }, {
+                    value: '2',
+                    label: '不支付'
+                  },],
+                },
+                on:{
+                  change:(item)=>{
+                    params.row.serverCharge=item
+                    this.$set(this.list,params.$index,params.row)
+                    
+                  }
+                }
+
+              })
+
+            }
+
           },
           {
             prop:"number",
@@ -175,11 +207,11 @@
             render:(h,params)=>{
               return h('el-input',{
                 props:{
-                  value:params.row.discount
+                  value:params.row.address
                 },
                 on:{
                   change:item=>{
-                    params.row.discount=item
+                    params.row.address=item
                   }
                 }
               })
