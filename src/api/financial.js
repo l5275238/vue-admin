@@ -38,3 +38,10 @@ export function getJxsList(params) {
   })
 
 }
+export function getYszk(params){
+  return request({
+    method:"post",
+    url:"/finance/accountsReceivable",
+    data:params
+  })
+}
