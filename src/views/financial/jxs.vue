@@ -11,23 +11,40 @@
             </el-option>
           </el-select>
         </div>
-
+        <dataTable :obj="res" :columns="columns" :hasPage="hasPage"></dataTable>
       </div>
 </template>
 
 <script>
   import {getJxs,getJxsList} from '@/api/financial'
   import selectBtn from '@/components/selectBtn/selectBtn'
+  import dataTable from '@/components/dataTable/dataTable'
     export default {
         name: "jxs",
       components:{
-        selectBtn
+        selectBtn,
+        dataTable
       },
       data(){
           return{
+            res:{
+                  list:[]
+            },
+            hasPage:false,
            jxsValue:"",
             options:[],
-            time:{}
+            time:{},
+            columns:[
+              {
+            prop:"productName",
+            isShow:true,
+            label:"产品名"
+          },{
+            prop:"productNum",
+            isShow:true,
+            label:"数量"
+          },
+            ]
           }
       },
       created(){
