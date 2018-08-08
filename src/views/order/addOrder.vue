@@ -43,7 +43,7 @@
         let money=0;
 
         for(let value of  this.form.details){
-          if(this.form.mode==1){
+          if(value.mode==1){
             money+=this.$calculation.multiply(this.$calculation.multiply(value.number,value.productUnitSalePrice),value.discount)
           }
           else {
@@ -99,42 +99,42 @@
 
           }
         },
-          {
-            key:"mode",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"计算方式",
-            render:(h,params)=>{
-              let create=this.$createElement;
-              return create('vSelect',{
-                props:{
-                  value:params['mode'],
-
-                  options: [{
-                    value: '1',
-                    label: '数量'
-                  }, {
-                    value: '3',
-                    label: '面积'
-                  },],
-                },
-                on:{
-                  change:(item)=>{
-                    if(item==3){
-                      this.wHshow=true
-                    }
-                    else {
-                      this.wHshow=false
-                    }
-                    params.mode=item
-                    this.form=Object.assign({},this.form,params)
-                  }
-                }
-
-              })
-
-            }
-          },
+          // {
+          //   key:"mode",
+          //   validator: ['isNotEmpty'],
+          //   trigger:'blur',
+          //   name:"计算方式",
+          //   render:(h,params)=>{
+          //     let create=this.$createElement;
+          //     return create('vSelect',{
+          //       props:{
+          //         value:params['mode'],
+          //
+          //         options: [{
+          //           value: '1',
+          //           label: '数量'
+          //         }, {
+          //           value: '3',
+          //           label: '面积'
+          //         },],
+          //       },
+          //       on:{
+          //         change:(item)=>{
+          //           if(item==3){
+          //             this.wHshow=true
+          //           }
+          //           else {
+          //             this.wHshow=false
+          //           }
+          //           params.mode=item
+          //           this.form=Object.assign({},this.form,params)
+          //         }
+          //       }
+          //
+          //     })
+          //
+          //   }
+          // },
           {
             key:"depotFromId",
             validator: ['isNotEmpty'],

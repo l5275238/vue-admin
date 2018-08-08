@@ -1,7 +1,7 @@
 <template>
   <div>
 
-      <dataTable :obj="res"  :columns="columns" :hasPage="hasPage" ></dataTable>
+      <dataTable :obj="res"  :columns="columns" :hasPage="hasPage" v-if="show" ></dataTable>
 
   </div>
 </template>
@@ -10,6 +10,7 @@
   import dataTable from '@/components/dataTable/dataTable'
   import {getAll} from '@/api/product.js'
   import vSelect from '@/components/select/select'
+
   export default {
     name: "productModel",
     components:{
@@ -21,23 +22,21 @@
       list:function () {
 
         this.res.list=this.list.map(item=>{
-          item.number='1'
-          item.zhuang='1'
-          item.kong='1'
+          item.number= item.number?item.number:'1'
+          item.zhuang=item.zhuang? item.zhuang:'1'
+          item.kong=item.kong?item.kong:'1'
+          item.model=item.model?item.model:'1'
+          debugger
           return item
         });
 
       },
-      wHshow:function () {
 
-
-       this.columns[4].isShow=this.wHshow;
-       this.columns[5].isShow=this.wHshow;
-      }
     },
 
     data(){
       return{
+        show:true,
         res:{
           list:[]
         },
@@ -68,7 +67,7 @@
           },
           {
             prop:"width ",
-            isShow:this.wHshow,
+            isShow:true,
             label:"宽",
             render:(h,params)=>{
               return h('el-input',{
@@ -78,6 +77,7 @@
                 on:{
                   change:item=>{
                     params.row.width=item
+
                   }
                 }
               })
@@ -85,7 +85,7 @@
           },
           {
             prop:"height",
-            isShow:this.wHshow,
+            isShow:true,
             label:"高",
             render:(h,params)=>{
               return h('el-input',{
@@ -98,6 +98,39 @@
                   }
                 }
               })
+            }
+          },
+          {
+            prop:"model",
+            isShow:true,
+            label:"计算类型",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              let value=params.row['model'];
+              return create('vSelect',{
+
+                props:{
+                  value:params.row['model'],
+
+                  options: [{
+                    value: '1',
+                    label: '数量'
+                  }, {
+                    value: '3',
+                    label: '面积'
+                  },],
+                },
+                on:{
+                  change:(item)=>{
+
+                    this.res.list[params.$index]['model']=item
+
+
+                  }
+                }
+
+              })
+
             }
           },
           {
@@ -172,6 +205,7 @@
                 on:{
                   change:(item)=>{
                     params.row.kong=item
+
                   }
                 }
 
@@ -199,6 +233,8 @@
                 on:{
                   change:(item)=>{
                     params.row.zhuang=item
+                    this.show=false;
+                    this.show=true
                   }
                 }
 
@@ -214,7 +250,13 @@
 
     },
     created(){
-      console.log(this.wHshow);
+      this.res.list=this.list.map(item=>{
+        item.number='1'
+        item.zhuang='1'
+        item.kong='1'
+        item.model='1'
+        return item
+      });
     },
 
     methods:{
