@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="top">
+      <el-button type="primary" @click="dowload" >导出</el-button>
       <selectBtn @change="change"></selectBtn>
       <el-select v-model="jxsValue" placeholder="选择门店" @change="getJxsList">
         <el-option
@@ -60,6 +61,15 @@
     created(){
       getPurchase().then(res=>{
         this.options=res
+      })
+    },
+    dowload:function(){
+      downLoad(Object.assign({},this.time,{
+        shopId:this.jxsValue,
+        orderType:3,
+        depotType:1
+      })).then(res=>{
+        window.location="https://mrking.wang/"+res
       })
     },
     methods:{

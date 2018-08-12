@@ -1,6 +1,7 @@
 <template>
       <div>
         <div class="top">
+          <el-button type="primary" @click="dowload" >导出</el-button>
           <selectBtn @change="change"></selectBtn>
           <el-select v-model="jxsValue" placeholder="请选择经销商" @change="getList">
             <el-option
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-  import {getJxs,getJxsList} from '@/api/financial'
+  import {getJxs,getJxsList,downLoad} from '@/api/financial'
   import selectBtn from '@/components/selectBtn/selectBtn'
   import dataTable from '@/components/dataTable/dataTable'
     export default {
@@ -56,6 +57,15 @@
         change:function (item) {
             this.time=item;
             this.getList()
+        },
+        dowload:function(){
+          downLoad(Object.assign({},this.time,{
+            shopId:this.jxsValue,
+            orderType:3,
+            depotType:1
+          })).then(res=>{
+            window.location="https://mrking.wang/"+res
+          })
         },
         getList:function () {
           getJxsList(Object.assign({},this.time,{

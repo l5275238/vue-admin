@@ -10,7 +10,7 @@
   import vForm from '@/components/form/vForm'
   import vSelect from '@/components/select/select'
   import {get,add,edit} from '@/api/product.js'
-  import {addOrder}  from "@/api/order.js";
+  import {addOrder,getDetai}  from "@/api/order.js";
   import {getAllHouse} from "../../api/wareHouse";
   import {getJxs} from '../../api/financial'
   import selectTaber from '../components/editProduct'
@@ -307,6 +307,7 @@
     created(){
       this.getAllHouse()
       this.getJxs()
+      this.getDetai()
 
     },
 
@@ -350,6 +351,13 @@
           this.res.page.totalCount=res.totalCount;
         })
         this.res.isLoading=false
+      },
+      getDetai:function () {
+        if(this.$route.query.id){
+          getDetai(this.$route.query.id).then(res=>{
+            this.form=res;
+          })
+        }
       }
     }
   }

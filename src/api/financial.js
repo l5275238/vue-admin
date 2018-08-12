@@ -45,3 +45,11 @@ export function getYszk(params){
     data:params
   })
 }
+export function downLoad(params) {
+  return request({
+    method:"post",
+    url:"/finance/profitExport",
+    data:params
+  })
+
+}

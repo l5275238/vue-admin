@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import {getOutList} from '@/api/wareHouse.js'
+  import {getOutList,deleteOutPut,auditoOutPut} from '@/api/wareHouse.js'
   import minx from '@/minxs/page'
   import dataTable from '@/components/dataTable/dataTable'
     export default {
@@ -36,6 +36,58 @@
                 label:"订单状态",
                 isShow:true
               },
+              {
+                prop:"edit",
+                isShow:true,
+                label:"操作",
+                render:(h,params)=>{
+                  return h(
+                    'div',[h('el-button',{
+
+                      props:{
+                        type:"primary"
+                      },
+                      on:{
+                        click:()=>{
+                          this.$router.push({
+                            path:"/wareHouse/editOut",
+                            query:{
+                              id:params.row.orderId
+                            }
+                          })
+                        }
+                      }
+                    },"编辑"),
+                      h('el-button',{
+
+                        props:{
+                          type:"warning"
+                        },
+                        on:{
+                          click:()=>{
+                            auditoOutPut(params.row.orderId).then(res=>{
+                              this.getList()
+                            })
+                          }
+                        }
+                      },"审核"),
+
+                      h('el-button',{
+
+                        props:{
+                          type:"danger"
+                        },
+                        on:{
+                          click:()=>{
+                            deleteOutPut(params.row.orderId).then(res=>{
+                              this.getList(Ø)
+                            })
+                          }
+                        }
+                      },"删除")]
+                  )
+                }
+              }
             ]
           }
 

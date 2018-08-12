@@ -8,7 +8,7 @@
   import dataTable from '@/components/dataTable/dataTable'
   import selectBtn from '@/components/selectBtn/selectBtn'
   import minx from '@/minxs/page'
-  import {getList} from '@/api/order.js'
+  import {getList,deletOrder,finished,audito} from '@/api/order.js'
 export default {
 name:"orderList",
   mixins:[minx],
@@ -50,7 +50,12 @@ name:"orderList",
                },
                on:{
                  click:()=>{
-
+                  this.$router.push({
+                    path:"/order/addOrder",
+                    query:{
+                      id:params.row.orderId
+                    }
+                  })
                  }
                }
              },"编辑"),
@@ -61,7 +66,9 @@ name:"orderList",
                },
                on:{
                  click:()=>{
-                   
+                   audito(params.row.orderId).then(res=>{
+                     this.getList()
+                   })
                  }
                }
              },"审核"),
@@ -72,7 +79,9 @@ name:"orderList",
                },
                on:{
                  click:()=>{
-                   
+                   finished(params.row.orderId).then(res=>{
+                     this.getList()
+                   })
                  }
                }
              },"完成"),
@@ -83,7 +92,9 @@ name:"orderList",
                },
                on:{
                  click:()=>{
-                   
+                   deletOrder(params.row.orderId).then(res=>{
+                     this.getList(Ø)
+                   })
                  }
                }
              },"删除")]

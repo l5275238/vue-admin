@@ -13,7 +13,7 @@
   import datePick from '@/components/datePick/datePick'
   import timePick from '@/components/datePick/timePick'
   import {get,add,edit} from '@/api/product.js'
-  import {getAllHouse,editOut} from "../../api/wareHouse";
+  import {getAllHouse,editOut,getOutPut} from "../../api/wareHouse";
   import {getAllist} from '../../api/people'
 
   import selectTaber from '../components/editProductO'
@@ -48,7 +48,7 @@
 
         let money=0;
 
-        for(let value of  this.form.details){
+        for(let value of  this.form.orderDetails){
           if(value.mode==1){
             money+=this.$calculation.multiply(this.$calculation.multiply(value.number,value.productUnitSalePrice),value.discount)
           }
@@ -200,7 +200,7 @@
             }
           },
           {
-            key:"details",
+            key:"orderDetails",
             // validator: ['isNotEmpty',],
             trigger:'blur',
             name:"商品列表",
@@ -208,7 +208,7 @@
               let create=this.$createElement;
               return create('selectTaber',{
                 props:{
-                  list:this.form.details,
+                  list:this.form.orderDetails,
                   wHshow:this.wHshow,
                 }
               })
@@ -237,10 +237,20 @@
       this.getAllHouse()
 
       this.getList()
+      this.getDetail()
 
     },
 
     methods:{
+      getDetail:function(){
+        if(this.$route.query.id){
+          getOutPut(this.$route.query.id).then(res=>{
+
+            this.form=res;
+            debugger
+          })
+        }
+      },
       dateChange(item){
         console.log(item);
       },

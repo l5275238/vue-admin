@@ -71,3 +71,33 @@ export function editPurchase(data) {
   })
 
 }
+export function auditoOutPut(id) {
+  return request({
+    url:"/order/output/audito",
+    method:"post",
+    data:{
+      id:id
+    }
+  })
+
+}
+
+export function getOutPut(id) {
+  return request({
+    url:"/order/output/get",
+    method:"post",
+    data:{
+      id:id
+    }
+  })
+
+}
+export function deleteOutPut(id) {
+  return request({
+    url:"/order/output/delete",
+    method:"post",
+    data:{
+      id:id
+    }
+  })
+}

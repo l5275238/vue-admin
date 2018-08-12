@@ -14,4 +14,43 @@ export function addOrder(params) {
     data: params
   })
 }
+export function getDetai(id) {
+  return request({
+    url:"order/shop/get",
+    method:"post",
+    data:{
+      id:id,
+    }
+  })
 
+}
+export function deletOrder(id) {
+  return request({
+    url:"order/shop/delete",
+    method:"post",
+    data:{
+      id:id
+    }
+  })
+
+}
+export function audito(id) {
+  return request({
+    url:"order/shop/audito",
+    method:"post",
+    data:{
+      id:id
+    }
+  })
+
+}
+export function finished(id) {
+  return request({
+    url:"/order/shop/finished",
+    method:"post",
+    data:{
+      id:id
+    }
+  })
+
+}

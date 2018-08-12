@@ -7,7 +7,7 @@
       width="50%"
       :before-close="handleClose">
       <el-radio-group v-model="form.roleId">
-        <el-radio :label="item.id" v-for="item in roleList">{{item.roleName}}</el-radio>
+        <el-radio :label="item.id" v-for="item in roleList" :key="item.id">{{item.roleName}}</el-radio>
 
       </el-radio-group>
 

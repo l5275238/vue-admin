@@ -13,7 +13,7 @@
   import datePick from '@/components/datePick/datePick'
   import timePick from '@/components/datePick/timePick'
   import {get,add,edit} from '@/api/product.js'
-  import {getAllHouse,editOut} from "../../api/wareHouse";
+  import {getAllHouse,editOut,getOutPut} from "../../api/wareHouse";
 
 
   import selectTaber from '../components/editProductO'
@@ -245,6 +245,13 @@
         editOut(item).then(res=>{
           this.$router.back(-1)
         })
+      },
+      getDetail:function(){
+        if(this.$route.query.id){
+          getOutPut(this.$route.query.id).then(res=>{
+            this.form=res;
+          })
+        }
       },
       getList:async function () {
 
