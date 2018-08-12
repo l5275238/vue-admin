@@ -70,36 +70,7 @@
         JxsList:[],
         depotList:[],
         wHshow:false,
-        vform:[  {
-          key:"orderType",
-          validator: ['isNotEmpty'],
-          trigger:'blur',
-          name:"订单类型",
-          render:(h,params)=>{
-            let create=this.$createElement;
-            return create('vSelect',{
-              props:{
-                value:params['orderType'],
-
-                options: [{
-                  value: '1',
-                  label: '门店'
-                }, {
-                  value: '3',
-                  label: '渠道'
-                },],
-              },
-              on:{
-                change:(item)=>{
-                  params.orderType=item;
-                this.form=Object.assign({},this.form,params)
-                }
-              }
-
-            })
-
-          }
-        },
+        vform:[  
           // {
           //   key:"mode",
           //   validator: ['isNotEmpty'],
@@ -137,6 +108,25 @@
           //   }
           // },
           {
+            key:"date",
+          validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"选择日期",
+            render:(h,params)=>{
+              return h('el-date-picker',{
+                  props:{
+                    "value":this.form.date
+                  },
+                  on:{
+                    change:(item)=>{
+                      console.log(item)
+                      this.form.date=item
+                    }
+                  }
+              },)
+            }
+          },
+          {
             key:"depotFromId",
             validator: ['isNotEmpty'],
             trigger:'blur',
@@ -164,12 +154,7 @@
             }
           },
           
-          {
-            key:"productSize",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"产品尺寸"
-          },
+          
           {
             key:"productWidth",
             // validator: ['isNotEmpty','isNumber'],
@@ -212,91 +197,7 @@
 
 
           },
-          {
-            key:"allMoney",
-            validator: ['isNotEmpty','isNumber'],
-            trigger:'blur',
-            name:"总价",
-            disabled:true
-          },
-          {
-            key:"定金",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"定金",
-            isHidden:()=>{
-              return this.form.orderType!=1
-            }
-          },
-          {
-            key:"totalMoney",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"实收金额"
-          },
-          {
-            key:"shopId",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"选择渠道",
-            isHidden:()=>{
-              return this.form.orderType!=3
-            },
-            render:(h,params)=>{
-              let create=this.$createElement;
-              return create('vSelect',{
-                props:{
-                  value:params['shopId'],
-
-                  options:this.JxsList,
-                  label:"name",
-                  keyValue:"id"
-                },
-                on:{
-                  change:(item)=>{
-                    params.shopId=item
-                    this.form=Object.assign({},this.form,params)
-                  }
-                }
-
-              })
-
-            }
-          },
-          {
-            key:"person",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"联系人",
-            isHidden:()=>{
-              return this.form.orderType!=1
-
-            },
-          },
-          {
-            key:"address",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"地址",
-            isHidden:()=>{
-              return this.form.orderType!=1
-            },
-          },
-          {
-            key:"followPerson",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"跟单人员",
-            isHidden:()=>{
-              return this.form.orderType!=1
-            },
-          },
-          {
-            key:"customer",
-            validator: ['isNotEmpty'],
-            trigger:'blur',
-            name:"客户"
-          },
+          
 
 
         ],

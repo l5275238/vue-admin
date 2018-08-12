@@ -52,6 +52,7 @@ export const constantRouterMap = [
     },
       {
         path: 'addOrder',
+        hidden:true,
         component: () => import('@/views/order/addOrder'),
         meta: { title: '编辑订单', icon: 'table' }
       }
@@ -135,6 +136,12 @@ export const constantRouterMap = [
         name:"purchase",
         component: () => import('@/views/wareHouse/purchase'),
         meta: { title: '采购', icon: 'table' }
+      },
+      {
+        path: 'editProduct',
+        name: "editProduct",
+        component: () => import('@/views/wareHouse/editProduct'),
+        meta: { title: '出入库单编辑', icon: 'table' }
       }
 
 

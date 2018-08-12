@@ -25,7 +25,7 @@
           item.number= item.number?item.number:'1'
           item.zhuang=item.zhuang? item.zhuang:'1'
           item.kong=item.kong?item.kong:'1'
-          item.mode=item.mode?item.model:'1'
+          item.mode=item.mode?item.mode:'1'
           item.serverCharge=item.serverCharge?item.serverCharge:'1'
           
           return item

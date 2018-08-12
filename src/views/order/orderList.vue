@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dataTable :obj="res" :columns="columns"></dataTable>
+    <dataTable :obj="res" :add="add" :columns="columns"></dataTable>
   </div>
 
 </template>
@@ -17,6 +17,10 @@ name:"orderList",
   },
   data(){
    return{
+     add:{
+              title:"新增订单",
+              url:"/order/addOrder"
+            },
      columns:[
        {
          prop:"orderType",
@@ -33,6 +37,59 @@ name:"orderList",
          isShow:true,
          label:"总价"
        },
+       {
+         prop:"edit",
+         isShow:true,
+         label:"操作",
+         render:(h,params)=>{
+           return h(
+             'div',[h('el-button',{
+
+               props:{
+                 type:"primary"
+               },
+               on:{
+                 click:()=>{
+
+                 }
+               }
+             },"编辑"),
+             h('el-button',{
+
+               props:{
+                 type:"warning"
+               },
+               on:{
+                 click:()=>{
+                   
+                 }
+               }
+             },"审核"),
+             h('el-button',{
+
+               props:{
+                 type:"warning"
+               },
+               on:{
+                 click:()=>{
+                   
+                 }
+               }
+             },"完成"),
+             h('el-button',{
+
+               props:{
+                 type:"danger"
+               },
+               on:{
+                 click:()=>{
+                   
+                 }
+               }
+             },"删除")]
+           )
+         }
+       }
      ]
    }
   },
