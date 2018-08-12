@@ -138,11 +138,29 @@ export const constantRouterMap = [
         meta: { title: '采购', icon: 'table' }
       },
       {
-        path: 'editProduct',
-        name: "editProduct",
-        component: () => import('@/views/wareHouse/editProduct'),
-        meta: { title: '出入库单编辑', icon: 'table' }
+        path: 'editOut',
+        name: "editOut",
+        hidden:true,
+        component: () => import('@/views/wareHouse/editOut'),
+        meta: { title: '出库编辑', icon: 'table' }
+      },
+      {
+        path:"editPut",
+        name:"editPut",
+        hidden:true,
+        component:()=>import('@/views/wareHouse/editPut'),
+        meta:{title:"入库编辑",icon:"table"}
+
+      },
+      {
+        path:"addPurchase",
+        name:"addPurchase",
+        hidden:true,
+        component:()=>import('@/views/wareHouse/addPurchase'),
+        meta:{title:"采购编辑",icon:"table"}
+
       }
+
 
 
 

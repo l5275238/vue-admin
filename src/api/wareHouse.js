@@ -55,3 +55,19 @@ export function getPurchase(data) {
   })
 
 }
+export function editOut(data) {
+  return request({
+    url:data.orderId?'/order/output/update':'/order/output/insert',
+    method:"post",
+    data:data,
+  })
+
+}
+export function editPurchase(data) {
+  return request({
+    url:"/order/purchase/insert",
+    method:"post",
+    data:data
+  })
+
+}

@@ -16,7 +16,7 @@
           return{
             add:{
                title:"新增出库单",
-              url:"/wareHouse/editProduct"
+              url:"/wareHouse/editOut"
 
             },
             columns:[

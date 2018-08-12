@@ -1,5 +1,6 @@
 <template>
   <div class="add">
+
     <vForm :form="form" :vform="vform" @subMit="onSubmit"></vForm>
     <productModel v-model="show" @save="saveList"></productModel>
   </div>
@@ -9,16 +10,18 @@
 <script>
   import vForm from '@/components/form/vForm'
   import vSelect from '@/components/select/select'
+  import datePick from '@/components/datePick/datePick'
+  import timePick from '@/components/datePick/timePick'
   import {get,add,edit} from '@/api/product.js'
-  import {addOrder}  from "@/api/order.js";
-  import {getAllHouse} from "../../api/wareHouse";
-  import {getJxs} from '../../api/financial'
-  import selectTaber from '../components/editProduct'
+  import {getAllHouse,editOut} from "../../api/wareHouse";
+  import {getAllist} from '../../api/people'
+
+  import selectTaber from '../components/editProductO'
   import productModel from '@/views/components/productModel'
   
 
   let formData={
-    orderType:"1",
+    orderType:"2",
     serverCharge:"1",
     mode:"1",
   shopId:"",
@@ -36,7 +39,9 @@
       vForm,
       vSelect,
       selectTaber,
-      productModel
+      productModel,
+      datePick,
+      timePick
     },
     watch:{
       form:function () {
@@ -67,65 +72,61 @@
       return {
         show:false,
         form:formData,
-        JxsList:[],
+        value10:"",
+        peoPlist:[],
         depotList:[],
         wHshow:false,
+        date:new Date(),
         vform:[  
-          // {
-          //   key:"mode",
-          //   validator: ['isNotEmpty'],
-          //   trigger:'blur',
-          //   name:"计算方式",
-          //   render:(h,params)=>{
-          //     let create=this.$createElement;
-          //     return create('vSelect',{
-          //       props:{
-          //         value:params['mode'],
-          //
-          //         options: [{
-          //           value: '1',
-          //           label: '数量'
-          //         }, {
-          //           value: '3',
-          //           label: '面积'
-          //         },],
-          //       },
-          //       on:{
-          //         change:(item)=>{
-          //           if(item==3){
-          //             this.wHshow=true
-          //           }
-          //           else {
-          //             this.wHshow=false
-          //           }
-          //           params.mode=item
-          //           this.form=Object.assign({},this.form,params)
-          //         }
-          //       }
-          //
-          //     })
-          //
-          //   }
-          // },
+
           {
             key:"date",
           validator: ['isNotEmpty'],
             trigger:'blur',
             name:"选择日期",
             render:(h,params)=>{
-              return h('el-date-picker',{
+              let create=this.$createElement;
+              return create('datePick',{
+                data:{
+                value10:"",
+              },
                   props:{
-                    "value":this.form.date
+                    "value":this.form.date,
+                    "type":"date"
                   },
                   on:{
                     change:(item)=>{
-                      console.log(item)
                       this.form.date=item
                     }
                   }
               },)
             }
           },
+          {
+            key:"time",
+            validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"选择时间",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('timePick',{
+                data:{
+                  value10:"",
+                },
+                props:{
+                  "value":this.form.time,
+                  "type":"date"
+                },
+                on:{
+                  change:(item)=>{
+                    debugger
+                    this.form.time=item
+                  }
+                }
+              },)
+            }
+          },
+
           {
             key:"depotFromId",
             validator: ['isNotEmpty'],
@@ -140,6 +141,33 @@
                   options:this.depotList,
                   label:"depotName",
                   keyValue:"depotId",
+
+                },
+                on:{
+                  change:(item)=>{
+                    params.depotFromId=item
+                    this.form=Object.assign({},this.form,params)
+                  }
+                }
+
+              })
+
+            }
+          },
+          {
+            key:"purchaseId",
+            validator: ['isNotEmpty'],
+            trigger:'blur',
+            name:"选择人员",
+            render:(h,params)=>{
+              let create=this.$createElement;
+              return create('vSelect',{
+                props:{
+                  value:params['purchaseId'],
+
+                  options:this.peoPlist,
+                  label:"name",
+                  keyValue:"id",
 
                 },
                 on:{
@@ -207,11 +235,15 @@
     },
     created(){
       this.getAllHouse()
-      this.getJxs()
+
+      this.getList()
 
     },
 
     methods:{
+      dateChange(item){
+        console.log(item);
+      },
       saveList(item){
        this.form.details=item;
       },
@@ -222,11 +254,7 @@
           this.get(this.$route.query.id)
         }
       },
-      getJxs(){
-        getJxs().then(res=>{
-          this.JxsList=res;
-        })
-      },
+
       getAllHouse(){
         getAllHouse().then(data=>{
           this.depotList=data
@@ -240,17 +268,16 @@
         })
       },
       onSubmit:function(item){
-        addOrder(item).then(res=>{
+        editOut(item).then(res=>{
           this.$router.back(-1)
         })
       },
       getList:async function () {
-        this.res.isLoading=true
-        await getList(this.res.page).then(res=>{
-          this.res.list=res.list;
-          this.res.page.totalCount=res.totalCount;
+
+        await getAllist(2).then(res=>{
+          this.peoPlist=res;
         })
-        this.res.isLoading=false
+
       }
     }
   }

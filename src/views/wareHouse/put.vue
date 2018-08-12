@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dataTable :obj="res"  :columns="columns"></dataTable>
+    <dataTable :obj="res"  :add="add" :columns="columns"></dataTable>
 
   </div>
 </template>
@@ -14,6 +14,11 @@
     mixins:[minx],
     data(){
       return{
+        add:{
+          title:"新增入库单",
+          url:"/wareHouse/editPut"
+
+        },
         columns:[
           {prop:"createDate",
             label:"创建时间",

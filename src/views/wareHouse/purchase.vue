@@ -17,7 +17,7 @@
       return{
         add:{
           title:"新增采购单",
-          url:"/wareHouse/addWareHouse"
+          url:"/wareHouse/addPurchase"
         },
         columns:[
           {prop:"number",

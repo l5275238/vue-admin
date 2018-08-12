@@ -13,20 +13,20 @@
   import datePick from '@/components/datePick/datePick'
   import timePick from '@/components/datePick/timePick'
   import {get,add,edit} from '@/api/product.js'
-  import {getAllHouse,editPurchase} from "../../api/wareHouse";
+  import {getAllHouse,editOut} from "../../api/wareHouse";
 
 
   import selectTaber from '../components/editProductO'
   import productModel from '@/views/components/productModel'
-
+  
 
   let formData={
     orderType:"1",
     serverCharge:"1",
     mode:"1",
-    shopId:"",
-    depotFromId:"",
-    details:[],
+  shopId:"",
+  depotFromId:"",
+  details:[],
     allMoney:0,
 
 
@@ -67,7 +67,7 @@
       }
     },
     data(){
-      let that=this
+     let that=this
 
       return {
         show:false,
@@ -77,28 +77,28 @@
         depotList:[],
         wHshow:false,
         date:new Date(),
-        vform:[
+        vform:[  
 
           {
             key:"date",
-            validator: ['isNotEmpty'],
+          validator: ['isNotEmpty'],
             trigger:'blur',
             name:"选择日期",
             render:(h,params)=>{
               let create=this.$createElement;
               return create('datePick',{
                 data:{
-                  value10:"",
-                },
-                props:{
-                  "value":this.form.date,
-                  "type":"date"
-                },
-                on:{
-                  change:(item)=>{
-                    this.form.date=item
+                value10:"",
+              },
+                  props:{
+                    "value":this.form.date,
+                    "type":"date"
+                  },
+                  on:{
+                    change:(item)=>{
+                      this.form.date=item
+                    }
                   }
-                }
               },)
             }
           },
@@ -155,8 +155,8 @@
             }
           },
 
-
-
+          
+          
           {
             key:"productWidth",
             // validator: ['isNotEmpty','isNumber'],
@@ -199,7 +199,7 @@
 
 
           },
-
+          
 
 
         ],
@@ -219,7 +219,7 @@
         console.log(item);
       },
       saveList(item){
-        this.form.details=item;
+       this.form.details=item;
       },
       init(){
 
@@ -242,7 +242,7 @@
         })
       },
       onSubmit:function(item){
-        editPurchase(item).then(res=>{
+        editOut(item).then(res=>{
           this.$router.back(-1)
         })
       },
