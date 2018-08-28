@@ -34,7 +34,17 @@
           },
           {prop:"auditStatus",
             label:"订单状态",
-            isShow:true
+            isShow:true,
+            render:(h,params)=>{
+              var title;
+              if(params.row.auditStatus){
+                title= "审核"
+              }
+              else {
+                title= "未审核"
+              }
+              return h('div',title)
+            }
           },
         ]
       }

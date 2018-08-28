@@ -25,7 +25,17 @@ name:"orderList",
        {
          prop:"orderType",
          isShow:true,
-         label:"订单类型"
+         label:"订单类型",
+         render:(h,params)=>{
+           var title;
+           if(params.row.orderType==1){
+             title= "门店"
+           }
+           else {
+             title= "渠道"
+           }
+           return h('div',title)
+         }
        },
        {
          prop:"totalMoney",
